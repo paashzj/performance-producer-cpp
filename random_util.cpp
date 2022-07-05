@@ -17,17 +17,23 @@
  * under the License.
  */
 
-#include <iostream>
-#include "pulsar.cpp"
+#include <string>
 
-int main() {
-    std::cout << "performance producer start" << std::endl;
-    char *produceType = getenv("PRODUCE_TYPE");
-    if (produceType == nullptr) {
-        std::cout << "produce type is not config" << std::endl;
-    } else if (strcmp(produceType, "pulsar") == 0) {
-        std::cout << "produce type is pulsar" << std::endl;
-        Pulsar::start();
+using namespace std;
+
+class RandomUtil {
+public:
+    static string randomStr(const int len) {
+        static const char alpha[] =
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                "abcdefghijklmnopqrstuvwxyz";
+        string tmp;
+        tmp.reserve(len);
+
+        for (int i = 0; i < len; ++i) {
+            tmp += alpha[rand() % (sizeof(alpha) - 1)];
+        }
+
+        return tmp;
     }
-    return 0;
-}
+};
