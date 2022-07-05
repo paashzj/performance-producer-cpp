@@ -31,5 +31,10 @@ RUN echo "begin build" && \
     rm -f apache-pulsar-client-devel-2.10.1-1.x86_64.rpm && \
     echo "end build"
 
-COPY . /opt/sh/compile
-WORKDIR /opt/sh/compile
+COPY . /opt/sh
+WORKDIR /opt/sh
+
+RUN cmake . && \
+    make
+
+CMD ["/usr/bin/dumb-init", "/opt/sh/performance_producer_cpp"]
